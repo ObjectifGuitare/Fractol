@@ -6,7 +6,7 @@
 /*   By: sepatez <sepatez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 14:14:11 by sepatez           #+#    #+#             */
-/*   Updated: 2024/03/14 21:22:46 by sepatez          ###   ########.fr       */
+/*   Updated: 2024/03/14 22:03:34 by sepatez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void my_mlx_pixel_put(t_data *data, int x, int y, int color)
     *(unsigned int*)dst = color;
 }
 
-// the point of this function is to pack each value into a single int
-int create_trgb(int t, int r, int g, int b)
+// the point of this function is to pack each value into a single int as 0xTTRRGGBB
+int create_trgb(unsigned char t, unsigned char r, unsigned char g, unsigned char b)
 {
 	return (t << 24 | r << 16 | g << 8 | b);
 }
@@ -68,11 +68,20 @@ void windowyes(void)
 int main()
 {
     // windowyes();
-
-    int a = create_trgb(0x91, 0xAB, 0x52, 0);
-
-    a = ((0xBFF101 << 8) & 0xFF) * 10 + 1; // from now on this is the only way i'll write the number 1
-    printf("%d\n", a);
-    printf("G channel is: %X\n", (a >> 8) & 0xFF);
+    unsigned char t = 0x91;
+    unsigned char r = 0xAB;
+    unsigned char g = 0x52;
+    unsigned char b = 0xFF;
+    
+    int a = create_trgb(t, r, g, b);
+   
+   // a = ((0xBFF101 << 8) & 0xFF) * 10 + 1; // from now on this is the only way i'll write the number 1
+    printf("\nmy trgb is: %X\n", a);
+    printf("G channel is : %X (hexadecimal)\n", (a & 0xFF00) >> 8); // gets channel G without modifying my variable
+    printf("G channel is : %u (decimal)\n", (unsigned char)((a & 0xFF00) >> 8)); // gets channel G without modifying my variable
+    printf("G channel size is: %lu (unsigned char cast)\n", sizeof((unsigned char)((a & 0xFF00) >> 8))); // gets channel G without modifying my variable
+    printf("G channel size is: %lu\n", sizeof(((a & 0xFF00) >> 8))); // gets channel G without modifying my variable
+    
+    // printf("B slot is now: %X\n", (a << 8 )& 0xFF);
     return 0;
 }

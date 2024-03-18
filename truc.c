@@ -6,7 +6,7 @@
 /*   By: sepatez <sepatez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 14:14:11 by sepatez           #+#    #+#             */
-/*   Updated: 2024/03/14 22:03:34 by sepatez          ###   ########.fr       */
+/*   Updated: 2024/03/18 21:04:13 by sepatez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,10 @@ void windowyes(void)
     img.img = mlx_new_image(mlx_instance, WINDOW_X, WINDOW_Y);
     img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
     
-    display_square(&img);
-    
+    // display_square(&img);
+    ft_escape(&img);
+    // color_center_pixel(&img);
+
     mlx_put_image_to_window(mlx_instance, window, img.img, 0, 0);
     mlx_loop(mlx_instance);
 }
@@ -68,20 +70,21 @@ void windowyes(void)
 int main()
 {
     // windowyes();
-    unsigned char t = 0x91;
-    unsigned char r = 0xAB;
-    unsigned char g = 0x52;
-    unsigned char b = 0xFF;
+    ft_escape(0x0);
+//     unsigned char t = 0x91;
+//     unsigned char r = 0xAB;
+//     unsigned char g = 0x52;
+//     unsigned char b = 0xFF;
     
-    int a = create_trgb(t, r, g, b);
+//     int a = create_trgb(t, r, g, b);
    
-   // a = ((0xBFF101 << 8) & 0xFF) * 10 + 1; // from now on this is the only way i'll write the number 1
-    printf("\nmy trgb is: %X\n", a);
-    printf("G channel is : %X (hexadecimal)\n", (a & 0xFF00) >> 8); // gets channel G without modifying my variable
-    printf("G channel is : %u (decimal)\n", (unsigned char)((a & 0xFF00) >> 8)); // gets channel G without modifying my variable
-    printf("G channel size is: %lu (unsigned char cast)\n", sizeof((unsigned char)((a & 0xFF00) >> 8))); // gets channel G without modifying my variable
-    printf("G channel size is: %lu\n", sizeof(((a & 0xFF00) >> 8))); // gets channel G without modifying my variable
+//     a = ((0xBFF101 << 8) & 0xFF) * 10 + 1; // from now on this is the only way i'll write the number 1
+//     printf("\nmy trgb is: %X\n", a);
+//     printf("G channel is : %X (hexadecimal)\n", (a & 0xFF00) >> 8); // gets channel G without modifying my variable
+//     printf("G channel is : %u (decimal)\n", (unsigned char)((a & 0xFF00) >> 8)); // gets channel G without modifying my variable
+//     printf("G channel size is: %lu (unsigned char cast)\n", sizeof((unsigned char)((a & 0xFF00) >> 8))); // gets channel G without modifying my variable
+//     printf("G channel size is: %lu\n", sizeof(((a & 0xFF00) >> 8))); // gets channel G without modifying my variable
     
-    // printf("B slot is now: %X\n", (a << 8 )& 0xFF);
+//     // printf("B slot is now: %X\n", (a << 8 )& 0xFF);
     return 0;
 }

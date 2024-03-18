@@ -1,4 +1,4 @@
-FUNC = truc.c
+FUNC = truc.c escape.c
 
 # CC = gcc -Wall -Wextra -Werror
 CC = cc

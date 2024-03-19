@@ -6,7 +6,7 @@
 /*   By: sepatez <sepatez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 14:14:34 by sepatez           #+#    #+#             */
-/*   Updated: 2024/03/19 21:22:08 by sepatez          ###   ########.fr       */
+/*   Updated: 2024/03/20 00:05:34 by sepatez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ void    display_square(t_data *img);
 void windowyes(void);
 
 //escape.c
-void ft_escape(t_data *data);
-void    color_center_pixel(t_data *img);
-void testin(t_data *img);
+
+int trgb_iteration(int iteration);
+void put_mandelbrot(t_data *img);
 
 
 

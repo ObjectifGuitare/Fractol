@@ -6,7 +6,7 @@
 /*   By: sepatez <sepatez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 14:14:34 by sepatez           #+#    #+#             */
-/*   Updated: 2024/03/20 00:05:34 by sepatez          ###   ########.fr       */
+/*   Updated: 2024/03/20 00:13:30 by sepatez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@
 
 
 # include <mlx.h>
-# include <math.h>
 
 typedef struct s_data {
     void *img;
@@ -51,12 +50,11 @@ void windowyes(void);
 //escape.c
 
 int trgb_iteration(int iteration);
+int check_mandelship(double x0, double y0);
 void put_mandelbrot(t_data *img);
 
 
 
 #include <stdio.h> // for printf
-#include <stdlib.h> // for random nbr
-#include <unistd.h> // for the sleep function
 
 #endif

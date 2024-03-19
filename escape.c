@@ -6,7 +6,7 @@
 /*   By: sepatez <sepatez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 19:15:16 by sepatez           #+#    #+#             */
-/*   Updated: 2024/03/19 23:00:58 by sepatez          ###   ########.fr       */
+/*   Updated: 2024/03/19 23:02:56 by sepatez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ int trgb_iteration(int iteration)
 
 double scale_x(int screen_x)
 {
-    printf("scale x returns %f\n",(3.0 / WINDOW_X * screen_x));
     return -2.0 + (3.0 / WINDOW_X * (screen_x));
 }
 
@@ -121,7 +120,6 @@ void testin(t_data *img)
             }
             my_mlx_pixel_put(img, screen_x, screen_y++, trgb_iteration(iteration));
         }
-        printf("%f, %f\n", x0, y0);
         screen_x++;
         screen_y = 0;
     }

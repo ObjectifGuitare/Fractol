@@ -6,7 +6,7 @@
 /*   By: sepatez <sepatez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 14:14:11 by sepatez           #+#    #+#             */
-/*   Updated: 2024/03/18 21:04:13 by sepatez          ###   ########.fr       */
+/*   Updated: 2024/03/19 20:29:48 by sepatez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,9 @@ void windowyes(void)
     img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
     
     // display_square(&img);
-    ft_escape(&img);
+    // ft_escape(&img);
     // color_center_pixel(&img);
+    testin(&img);
 
     mlx_put_image_to_window(mlx_instance, window, img.img, 0, 0);
     mlx_loop(mlx_instance);
@@ -69,8 +70,8 @@ void windowyes(void)
 
 int main()
 {
-    // windowyes();
-    ft_escape(0x0);
+    windowyes();
+    // ft_escape(0x0);
 //     unsigned char t = 0x91;
 //     unsigned char r = 0xAB;
 //     unsigned char g = 0x52;

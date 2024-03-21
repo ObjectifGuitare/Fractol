@@ -6,19 +6,22 @@
 /*   By: sepatez <sepatez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 14:14:34 by sepatez           #+#    #+#             */
-/*   Updated: 2024/03/20 19:38:56 by sepatez          ###   ########.fr       */
+/*   Updated: 2024/03/21 19:46:41 by sepatez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
+//JULIA OR MANDEL
+# define MEMBERSHIP check_juliaship
+
 // WINDOW SIZE
 # define WINDOW_Y 1000
 # define WINDOW_X 1500
 
 // MAX ITERATION - should maybe not be a macro
-# define MAX_ITERATION 596
+# define MAX_ITERATION 100
 
 // COLORS
 # define COLOR_FACTOR 1.36

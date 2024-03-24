@@ -1,7 +1,6 @@
-FUNC = truc.c escape.c
+FUNC = main.c escape.c utils.c
 
-# CC = gcc -Wall -Wextra -Werror
-CC = cc
+CC = gcc -Wall -Wextra -Werror
 NAME = fractol
 OBJ = $(FUNC:.c=.o)
 
@@ -9,13 +8,9 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	$(CC) -Imlx $(OBJ) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
-# $(NAME):
-# 	$(CC) -Imlx truc.c -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
-
 
 $(OBJ): $(FUNC)
 	$(CC) -Wall -Wextra -Werror -Imlx -c $(FUNC)
-
 
 clean:
 	rm -f $(OBJ) $(OBJ_BNS)

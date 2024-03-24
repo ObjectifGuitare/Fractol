@@ -6,7 +6,7 @@
 /*   By: sepatez <sepatez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 19:15:16 by sepatez           #+#    #+#             */
-/*   Updated: 2024/03/21 19:56:45 by sepatez          ###   ########.fr       */
+/*   Updated: 2024/03/24 20:48:03 by sepatez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	check_juliaship(double x, double y)
 	return (iteration);
 }
 
-void	put_mandelbrot(t_data *img)
+void	put_fractal(t_data *img, int f(double x, double y))
 {
 	int		screen_x;
 	int		screen_y;
@@ -84,7 +84,7 @@ void	put_mandelbrot(t_data *img)
 			scaled_x = -3.0 + (6.0 / WINDOW_X * (screen_x));
 			scaled_y = 2.24 - (4.48 / WINDOW_Y * (screen_y));
 			my_mlx_pixel_put(img, screen_x, screen_y++,
-				striped_trgb(MEMBERSHIP(scaled_x, scaled_y)));
+				striped_trgb(f(scaled_x, scaled_y)));
 		}
 		screen_y = 0;
 	}

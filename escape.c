@@ -12,20 +12,20 @@
 
 #include "fractol.h"
 
-
-
-inline unsigned int striped_trgb(int iteration)
+inline unsigned int	striped_trgb(int iteration)
 {
-	return (0xFFFFFFFF / MAX_ITERATION) * (iteration - COLOR_FACTOR);
+	return ((0xFFFFFFFF / MAX_ITERATION) * (iteration - COLOR_FACTOR));
 }
 
-int	check_mandelship(double scaled_x, double scaled_y)
+int	check_mandelship(double scaled_x, double scaled_y, double cx, double cy)
 {
 	double	x;
 	double	y;
 	double	temp;
 	int		iteration;
 
+	(void) cx;
+	(void) cy;
 	x = 0.0;
 	y = 0.0;
 	iteration = 0;
@@ -41,34 +41,49 @@ int	check_mandelship(double scaled_x, double scaled_y)
 char	check_abs(double x, double y)
 {
 	if (x < 0)
-		x *= -1;
+		x *= -1.0;
 	if (y < 0)
-		y *= -1;
-	if(x + y > 16)
+		y *= -1.0;
+	if (x + y >= 16)
 		return (0);
 	return (1);
 }
 
-int	check_juliaship(double x, double y)
+int	check_juliaship(double x, double y, double cx, double cy)
 {
 	double	temp;
 	int		iteration;
 
 	iteration = 0;
-	while(check_abs(x, y) && iteration++ < MAX_ITERATION)
+	while (x * x + y * y <= 4 && iteration++ < MAX_ITERATION)
 	{
-		// temp = x;
-		// x = x * x - y * y - 0.75;
-		// y = 2.0 * temp * y + 0.025;
-
-		temp = x * x - y * y - 1.75;
-		y = 2 * x * y + 0.025;
+		temp = x * x - y * y + (cx);
+		y = 2 * x * y + (cy);
 		x = temp;
 	}
 	return (iteration);
 }
 
-void	put_fractal(t_data *img, int f(double x, double y))
+// int	check_juliaship(double x, double y)
+// {
+// 	double	temp;
+// 	int		iteration;
+
+// 	iteration = 0;
+// 	while(check_abs(x, y) && iteration++ < MAX_ITERATION)
+// 	{
+// 		// temp = x;
+// 		// x = x * x - y * y - 0.75;
+// 		// y = 2.0 * temp * y + 0.025;
+
+// 		temp = x * x - y * y + (0.3);
+// 		y = 2 * x * y + (0.5);
+// 		x = temp;
+// 	}
+// 	return (iteration);
+// }
+
+void	put_fractal(t_data *img, int f(), double cx, double cy)
 {
 	int		screen_x;
 	int		screen_y;
@@ -84,7 +99,7 @@ void	put_fractal(t_data *img, int f(double x, double y))
 			scaled_x = -3.0 + (6.0 / WINDOW_X * (screen_x));
 			scaled_y = 2.24 - (4.48 / WINDOW_Y * (screen_y));
 			my_mlx_pixel_put(img, screen_x, screen_y++,
-				striped_trgb(f(scaled_x, scaled_y)));
+				striped_trgb(f(scaled_x, scaled_y, cx, cy)));
 		}
 		screen_y = 0;
 	}

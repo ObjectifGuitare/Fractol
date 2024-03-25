@@ -23,31 +23,20 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *) dst = color;
 }
 
-void	fractol(char **av, int f())
+void	fractol(int f(), double x, double y)
 {
 	void	*mlx_instance;
 	void	*window;
 	t_data	img;
 
-	(void) av;
 	mlx_instance = mlx_init();
 	window = mlx_new_window(mlx_instance, WINDOW_X, WINDOW_Y, "discover phase");
 	img.img = mlx_new_image(mlx_instance, WINDOW_X, WINDOW_Y);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel,
 			&img.line_length, &img.endian);
-	put_fractal(&img, f);
+	put_fractal(&img, f, x, y);
 	mlx_put_image_to_window(mlx_instance, window, img.img, 0, 0);
 	mlx_loop(mlx_instance);
-}
-
-void	ft_error(void)
-{
-	write(1, "Fool.\nOn launch, type m or 	mandelbrot \
-	(not case sensitive) to show mandelbrot.\
-	\nOn launch, type j or 	julia	 \
-	(not case sensitive) to show Julia. \
-	\nAlso you can enter two floats in two separate arguments for Julia.\n",
-	217);
 }
 
 int	main(int ac, char **av)
@@ -59,16 +48,19 @@ int	main(int ac, char **av)
 	}
 	if (ft_strcmp(av[1], "mandelbrot") || ft_strcmp(av[1], "m"))
 	{
-		fractol(av, check_mandelship);
+		fractol(check_mandelship, 0, 0);
 		return (0);
 	}
-	else if (ft_strcmp(av[1], "julia") || ft_strcmp(av[1], "j"))
+	if (ft_strcmp(av[1], "julia") || ft_strcmp(av[1], "j"))
 	{
 		if (ac == 2)
-			fractol(av, check_juliaship);
-
+			fractol(check_juliaship, -1.0, 0.0);
+		else if (ac == 4 && ft_atof(av[2]) != 2.0 && ft_atof(av[3]) != 2.0)
+			fractol(check_juliaship, ft_atof(av[2]), ft_atof(av[3]));
+		else
+			ft_error();
 		return (0);
 	}
-	else
-		ft_error();
+	ft_error();
+	return (0);
 }

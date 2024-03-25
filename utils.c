@@ -21,21 +21,42 @@ int	ft_tolower(int c)
 
 int	ft_strcmp(char *s1, char *s2)
 {
-	register int    i;
+	register int	i;
 
 	i = 0;
 	while ((s1[i] && s2[i]))
 	{
 		if (ft_tolower(s1[i]) != ft_tolower(s2[i]))
 			return (0);
-        i++;
+		i++;
 	}
 	if ((s1[i] == 0 && s2[i]) || (s1[i] && s2[i] == 0))
 		return (0);
 	return (1);
 }
 
-double	atof(char *s)
+double	ft_atof(char *s)
 {
-	return (0.1);
+	if (ft_strcmp(s, "-1"))
+		return (-1.0);
+	if (ft_strcmp(s, "-0.5"))
+		return (-0.5);
+	if (ft_strcmp(s, "0"))
+		return (0.0);
+	if (ft_strcmp(s, "0.5"))
+		return (0.5);
+	if (ft_strcmp(s, "1"))
+		return (1.0);
+	return (2.0);
+}
+
+void	ft_error(void)
+{
+	write(1, "Fool.\nOn launch, type m or 	mandelbrot \
+	(not case sensitive) to show mandelbrot.\
+	\nOn launch, type j or 	julia	 \
+	(not case sensitive) to show Julia. \
+	\nAlso you can enter two values in two separate arguments for Julia. \
+	\nAccepted values are -1, -0.5, 0, 0.5, 1.\n",
+		217);
 }

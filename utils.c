@@ -50,13 +50,22 @@ double	ft_atof(char *s)
 	return (2.0);
 }
 
+double ft_abs(double n)
+{
+	if (n > 0.0)
+		return (n * -1.0);
+	return (n);
+}
+
 void	ft_error(void)
 {
 	write(1, "Fool.\nOn launch, type m or 	mandelbrot \
-	(not case sensitive) to show mandelbrot.\
+	(not case sensitive) to show Mandelbrot.\
+	\nOn launch, type b or 	burne	 \
+	(not case sensitive) to show Burning Ship. \
 	\nOn launch, type j or 	julia	 \
 	(not case sensitive) to show Julia. \
 	\nAlso you can enter two values in two separate arguments for Julia. \
 	\nAccepted values are -1, -0.5, 0, 0.5, 1.\n",
-		217);
+		335);
 }

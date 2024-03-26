@@ -12,46 +12,37 @@
 
 #include "fractol.h"
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-	char	*dst;
-
-	// this offset thing is because the line length set by mlx_get_data_addr() does not correspond
-	// to WINDOW_X. The value I give to offset here comes from the man but it seems to me
-	// that the value of line_length should be WINDOW_X / 4... or maybe it's late and im tired
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int *) dst = color;
-}
-
 void	fractol(int f(), double x, double y)
 {
-	void	*mlx_instance;
-	void	*window;
+	t_vars	mlx;
 	t_data	img;
 
-	mlx_instance = mlx_init();
-	window = mlx_new_window(mlx_instance, WINDOW_X, WINDOW_Y, "discover phase");
-	img.img = mlx_new_image(mlx_instance, WINDOW_X, WINDOW_Y);
+	mlx.instance = mlx_init();
+	mlx.window = mlx_new_window(mlx.instance, WINDOW_X, WINDOW_Y, "fractol");
+	img.img = mlx_new_image(mlx.instance, WINDOW_X, WINDOW_Y);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel,
 			&img.line_length, &img.endian);
 	put_fractal(&img, f, x, y);
-	mlx_put_image_to_window(mlx_instance, window, img.img, 0, 0);
-	mlx_loop(mlx_instance);
+
+	
+	mlx_hook(mlx.window, ON_KEYDOWN, 1L<<0, ft_close, &mlx);
+	mlx_hook(mlx.window, ON_MOUSEMOVE, 1L<<6, print_mouse_pos, &mlx);
+	// mlx_key_hook(mlx.window, print_mouse_pos2, &mlx);
+
+
+	mlx_put_image_to_window(mlx.instance, mlx.window, img.img, 0, 0);
+	mlx_loop(mlx.instance);
 }
 
 int	main(int ac, char **av)
 {
 	if (ac < 2)
-	{
 		ft_error();
-		return (0);
-	}
-	if (ft_strcmp(av[1], "mandelbrot") || ft_strcmp(av[1], "m"))
-	{
+	else if (ft_strcmp(av[1], "burn") || ft_strcmp(av[1], "b"))
+		fractol(check_burning, 0, 0);
+	else if (ft_strcmp(av[1], "mandelbrot") || ft_strcmp(av[1], "m"))
 		fractol(check_mandelship, 0, 0);
-		return (0);
-	}
-	if (ft_strcmp(av[1], "julia") || ft_strcmp(av[1], "j"))
+	else if (ft_strcmp(av[1], "julia") || ft_strcmp(av[1], "j"))
 	{
 		if (ac == 2)
 			fractol(check_juliaship, -1.0, 0.0);
@@ -59,8 +50,8 @@ int	main(int ac, char **av)
 			fractol(check_juliaship, ft_atof(av[2]), ft_atof(av[3]));
 		else
 			ft_error();
-		return (0);
 	}
-	ft_error();
+	else
+		ft_error();
 	return (0);
 }

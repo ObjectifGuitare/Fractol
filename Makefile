@@ -1,4 +1,4 @@
-FUNC = main.c escape.c utils.c
+FUNC = main.c escape.c utils.c events.c
 
 CC = gcc -Wall -Wextra -Werror
 NAME = fractol

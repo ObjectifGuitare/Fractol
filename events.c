@@ -34,10 +34,13 @@ int x_btn(int keycode, t_vars *mlx)
 
 int change_colormod(int keycode, t_vars *mlx)
 {
+	printf("bonjourrrrr");
 	if (keycode == ARROW_UP)
-		mlx->colormod += 0.314;
+	{
+		mlx->colormod += 2.314;
+	}
 	if (keycode == ARROW_DOWN)
-		mlx->colormod -= 0.314;
+		mlx->colormod -= 2.314;
 	return (0);
 }
 

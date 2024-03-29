@@ -56,6 +56,8 @@ typedef struct	s_vars {
 	float	colormod;
 	int 	(*f)(double scaled_x, double scaled_y, double cx, double cy);
 	t_data	*img;
+	double cx;
+	double cy;
 }				t_vars;
 
 // events.c
@@ -81,7 +83,7 @@ void    my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int	check_juliaship(double x, double y, double cx, double cy);
 int check_mandelship(double x0, double y0, double cx, double cy);
 int	check_burning(double x, double y, double cx, double cy);
-void put_fractal(double cx, double cy, t_vars *mlx);
+int put_fractal(t_vars *mlx);
 
 
 

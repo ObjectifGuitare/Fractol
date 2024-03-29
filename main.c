@@ -26,7 +26,10 @@ void	fractol(int f(), double x, double y)
 	
 	mlx.f = f;
 	mlx.img = &img;
-	put_fractal(x, y, &mlx);
+	mlx.cx = x;
+	mlx.cy = y;
+	mlx.colormod = 3.2;
+	put_fractal(&mlx);
 
 
 	mlx_hook(mlx.window, ON_KEYDOWN, 1L<<0, change_colormod, &mlx);
@@ -34,6 +37,9 @@ void	fractol(int f(), double x, double y)
 	mlx_hook(mlx.window, ON_DESTROY, 0, x_btn, &mlx);
 	mlx_hook(mlx.window, ON_MOUSEMOVE, 1L<<6, print_mouse_pos, &mlx);
 	// mlx_key_hook(mlx.window, print_mouse_pos2, &mlx);
+
+	mlx.colormod += 3.2;
+	mlx_loop_hook(mlx.instance, &put_fractal, &mlx);
 
 	mlx_put_image_to_window(mlx.instance, mlx.window, img.img, 0, 0);
 	mlx_loop(mlx.instance);

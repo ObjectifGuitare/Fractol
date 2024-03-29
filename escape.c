@@ -12,10 +12,9 @@
 
 #include "fractol.h"
 
-inline unsigned int	striped_trgb(int iteration)
+inline unsigned int	striped_trgb(int iteration, t_vars *mlx)
 {
-	int COLOR_FACTOR = 30;
-	return ((0xFFFFFFFF / MAX_ITERATION) * (iteration + COLOR_FACTOR));
+	return ((0xFFFFFFFF / MAX_ITERATION) * (iteration + (mlx->colormod)));
 }
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
@@ -86,7 +85,7 @@ int	check_burning(double scaled_x, double scaled_y, double cx, double cy)
 	return (iteration);
 }
 
-void	put_fractal(t_data *img, int f(), double cx, double cy)
+void	put_fractal(double cx, double cy, t_vars *mlx)
 {
 	int		screen_x;
 	int		screen_y;
@@ -101,9 +100,10 @@ void	put_fractal(t_data *img, int f(), double cx, double cy)
 		{
 			scaled_x = -3.0 + (6.0 / WINDOW_X * (screen_x)); // min of the axis + (max of the axis / etc.)
 			scaled_y = 2.0 - (4.0 / WINDOW_Y * (screen_y)); // The ratio of min-max on the axis should respect the window ratio
-			my_mlx_pixel_put(img, screen_x, screen_y++,
-				striped_trgb(f(scaled_x, scaled_y, cx, cy)));
+			my_mlx_pixel_put(mlx->img, screen_x, screen_y++,
+				striped_trgb(mlx->f(scaled_x, scaled_y, cx, cy), mlx));
 		}
 		screen_y = 0;
 	}
+	// printf("%\n", );
 }

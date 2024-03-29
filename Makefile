@@ -7,7 +7,7 @@ OBJ = $(FUNC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) -Imlx $(OBJ) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) -Imlx $(OBJ) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 $(OBJ): $(FUNC)
 	$(CC) -Wall -Wextra -Werror -Imlx -c $(FUNC)

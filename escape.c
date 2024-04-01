@@ -14,7 +14,7 @@
 
 inline unsigned int	striped_trgb(int iteration, t_vars *mlx)
 {
-	return ((0xFFFFFFFF / MAX_ITERATION) * (iteration + (mlx->colormod)));
+	return ((0xFFFFFFFF / mlx->maxiter) * (iteration + (mlx->colormod)));
 }
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
@@ -28,19 +28,17 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int *) dst = color;
 }
 
-int	check_mandelship(double scaled_x, double scaled_y, double cx, double cy)
+int	check_mandelship(double scaled_x, double scaled_y, t_vars *mlx)
 {
 	double	x;
 	double	y;
 	double	temp;
 	int		iteration;
 
-	(void) cx;
-	(void) cy;
 	x = 0.0;
 	y = 0.0;
 	iteration = 0;
-	while (x * x + y * y <= 4.0 && iteration++ < MAX_ITERATION)
+	while (x * x + y * y <= 4.0 && iteration++ < mlx->maxiter)
 	{
 		temp = x * x - y * y + scaled_x;
 		y = 2 * x * y + scaled_y;
@@ -49,34 +47,32 @@ int	check_mandelship(double scaled_x, double scaled_y, double cx, double cy)
 	return (iteration);
 }
 
-int	check_juliaship(double x, double y, double cx, double cy)
+int	check_juliaship(double x, double y, t_vars *mlx)
 {
 	double	temp;
 	int		iteration;
 
 	iteration = 0;
-	while (x * x + y * y <= 4.0 && iteration++ < MAX_ITERATION)
+	while (x * x + y * y <= 4.0 && iteration++ < mlx->maxiter)
 	{
-		temp = x * x - y * y + (cx);
-		y = 2 * x * y + (cy);
+		temp = x * x - y * y + (mlx->cx);
+		y = 2 * x * y + (mlx->cy);
 		x = temp;
 	}
 	return (iteration);
 }
 
-int	check_burning(double scaled_x, double scaled_y, double cx, double cy)
+int	check_burning(double scaled_x, double scaled_y, t_vars *mlx)
 {
 	double	x;
 	double	y;
 	double	temp;
 	int		iteration;
 
-	(void) cx;
-	(void) cy;
 	x = 0.0;
 	y = 0.0;
 	iteration = 0;
-	while (x * x + y * y < 4.0 && iteration++ < MAX_ITERATION)
+	while (x * x + y * y < 4.0 && iteration++ < mlx->maxiter)
 	{
 		temp = x * x - y * y + scaled_x;
 		y = ft_abs(2 * x * y) + scaled_y;
@@ -94,14 +90,14 @@ int	put_fractal(t_vars *mlx)
 
 	screen_x = -1;
 	screen_y = 0;
-	while (++screen_x < WINDOW_X)
+	while (++screen_x < mlx->xwin)
 	{
-		while (screen_y < WINDOW_Y)
+		while (screen_y < mlx->ywin)
 		{
-			scaled_x = -3.0 + (6.0 / WINDOW_X * (screen_x)); // min of the axis + (max of the axis / etc.)
-			scaled_y = 2.0 - (4.0 / WINDOW_Y * (screen_y)); // The ratio of min-max on the axis should respect the window ratio
+			scaled_x = (-3.0 + (6.0 / mlx->xwin * (screen_x))) * mlx->zoom; // min of the axis + (max of the axis / etc.)
+			scaled_y = (2.0 - (4.0 / mlx->ywin * (screen_y))) * mlx->zoom; // The ratio of min-max on the axis should respect the window ratio
 			my_mlx_pixel_put(mlx->img, screen_x, screen_y++,
-				striped_trgb(mlx->f(scaled_x, scaled_y, mlx->cx, mlx->cy), mlx));
+				striped_trgb(mlx->f(scaled_x, scaled_y, mlx), mlx));
 		}
 		screen_y = 0;
 	}

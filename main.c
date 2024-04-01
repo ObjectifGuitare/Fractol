@@ -12,33 +12,43 @@
 
 #include "fractol.h"
 
+void	set_mlx(t_vars	*mlx)
+{
+	mlx->instance = mlx_init();
+	mlx->ywin = 1000;
+	mlx->xwin = 1500;
+	mlx->winratio = (float) mlx->ywin / (float) mlx->xwin;
+	mlx->window = mlx_new_window(mlx->instance,
+			mlx->xwin, mlx->ywin, "fractol");
+	// protect the malloc
+	mlx->colormod = 3.2;
+	mlx->zoom = 1;
+	mlx->maxiter = 1000; 
+}
+
 void	fractol(int f(), double x, double y)
 {
 	t_vars	mlx;
 	t_data	img;
 
-	mlx.instance = mlx_init();
-	mlx.window = mlx_new_window(mlx.instance, WINDOW_X, WINDOW_Y, "fractol");
-	mlx.colormod = 0;
-	img.img = mlx_new_image(mlx.instance, WINDOW_X, WINDOW_Y);
+	set_mlx(&mlx);
+	img.img = mlx_new_image(mlx.instance, mlx.xwin, mlx.ywin);
+	// protect the malloc
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel,
 			&img.line_length, &img.endian);
-	
-	mlx.f = f;
+	// protect the malloc
 	mlx.img = &img;
 	mlx.cx = x;
 	mlx.cy = y;
-	mlx.colormod = 3.2;
+	mlx.f = f;
+
 	put_fractal(&mlx);
 
-
-	mlx_hook(mlx.window, ON_KEYDOWN, 1L<<0, change_colormod, &mlx);
-	mlx_hook(mlx.window, ON_KEYDOWN, 1L<<0, ft_close, &mlx);
+	mlx_hook(mlx.window, ON_KEYDOWN, 1L << 0, change_colormod, &mlx);
+	mlx_hook(mlx.window, ON_KEYDOWN, 1L << 0, ft_close, &mlx);
 	mlx_hook(mlx.window, ON_DESTROY, 0, x_btn, &mlx);
-	mlx_hook(mlx.window, ON_MOUSEMOVE, 1L<<6, print_mouse_pos, &mlx);
-	// mlx_key_hook(mlx.window, print_mouse_pos2, &mlx);
+	mlx_hook(mlx.window, ON_MOUSEMOVE, 1L << 6, print_mouse_pos, &mlx);
 
-	mlx.colormod += 3.2;
 	mlx_loop_hook(mlx.instance, &put_fractal, &mlx);
 
 	mlx_put_image_to_window(mlx.instance, mlx.window, img.img, 0, 0);

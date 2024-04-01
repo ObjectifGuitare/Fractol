@@ -1,6 +1,6 @@
 FUNC = main.c escape.c utils.c events.c
 
-CC = gcc -Wall -Wextra -Werror
+CC = gcc -Wall -Wextra -Werror -fsanitize=address
 NAME = fractol
 OBJ = $(FUNC:.c=.o)
 

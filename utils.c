@@ -50,7 +50,7 @@ double	ft_atof(char *s)
 	return (2.0);
 }
 
-double ft_abs(double n)
+double	ft_abs(double n)
 {
 	if (n > 0.0)
 		return (n * -1.0);

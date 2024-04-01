@@ -16,37 +16,40 @@ int	ft_close(int keycode, t_vars *mlx)
 {
 	if (keycode == ESC)
 	{
-		mlx_destroy_window(mlx->instance, mlx->window);
+		free(mlx->img->addr);
+		if (mlx->instance && mlx->window)
+			mlx_clear_window(mlx->instance, mlx->window);
+		if (mlx->instance && mlx->window)
+			mlx_destroy_window(mlx->instance, mlx->window); 
 		exit(0);
 	}
 	return (0);
 }
 
-int x_btn(int keycode, t_vars *mlx)
+int	x_btn(t_vars *mlx)
 {
-	printf("%p\n", mlx->img);
-	printf("%s\n", "bonjour");
-	mlx_destroy_image(mlx->instance, mlx->img->addr);
-	printf("%s\n", "bonjour");
-	mlx_clear_window(mlx->instance, mlx->window); 
-	exit(keycode);
+	free(mlx->img->addr);
+	if (mlx->instance && mlx->window)
+		mlx_clear_window(mlx->instance, mlx->window);
+	if (mlx->instance && mlx->window)
+		mlx_destroy_window(mlx->instance, mlx->window); 
+	exit(0);
 }
 
-int change_colormod(int keycode, t_vars *mlx)
+int	change_colormod(int keycode, t_vars *mlx)
 {
 	printf("bonjourrrrr");
 	if (keycode == ARROW_UP)
 	{
-		mlx->colormod += 2.314;
+		mlx->colormod += 0.314;
 	}
 	if (keycode == ARROW_DOWN)
-		mlx->colormod -= 2.314;
+		mlx->colormod -= 0.314;
 	return (0);
 }
 
 int	print_mouse_pos(int x, int y, t_vars *mlx)
 {
 	(void) mlx;
-	// return printf("%d, %d\n", x, y);
-	return x + y;
+	return (x + y);
 }

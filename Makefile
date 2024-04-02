@@ -1,4 +1,4 @@
-FUNC = main.c escape.c utils.c events.c
+FUNC = main.c escape.c utils.c events.c pixels.c
 
 CC = gcc -Wall -Wextra -Werror -fsanitize=address
 NAME = fractol

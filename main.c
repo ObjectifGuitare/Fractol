@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sepatez <sepatez@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sepatez <sepatez@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 14:14:11 by sepatez           #+#    #+#             */
-/*   Updated: 2024/03/24 21:40:49 by sepatez          ###   ########.fr       */
+/*   Updated: 2024/04/02 22:36:02 by sepatez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	set_mlx(t_vars	*mlx)
 	// protect the malloc
 	mlx->colormod = 3.2;
 	mlx->zoom = 1;
-	mlx->maxiter = 10; 
+	mlx->maxiter = 50;
 }
 
 void	fractol(int f(), double x, double y)
@@ -41,15 +41,8 @@ void	fractol(int f(), double x, double y)
 	mlx.cx = x;
 	mlx.cy = y;
 	mlx.f = f;
-
-
-	
 	mlx_hook(mlx.window, ON_DESTROY, 0, x_btn, &mlx);
-	mlx_hook(mlx.window, ON_MOUSEMOVE, 1L << 6, print_mouse_pos, &mlx);
-
 	mlx_loop_hook(mlx.instance, &put_fractal, &mlx);
-
-	
 	mlx_loop(mlx.instance);
 }
 

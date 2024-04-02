@@ -6,7 +6,7 @@
 /*   By: sepatez <sepatez@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 14:14:11 by sepatez           #+#    #+#             */
-/*   Updated: 2024/04/02 22:53:13 by sepatez          ###   ########.fr       */
+/*   Updated: 2024/04/02 23:32:28 by sepatez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ int	ft_close(int keycode, t_vars *mlx)
 
 int	x_btn(t_vars *mlx)
 {
-	free(mlx->img->addr);
+	if (mlx->img->addr)
+		free(mlx->img->addr);
 	if (mlx->instance && mlx->window)
 		mlx_clear_window(mlx->instance, mlx->window);
 	if (mlx->instance && mlx->window)

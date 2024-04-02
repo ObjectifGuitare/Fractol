@@ -6,7 +6,7 @@
 /*   By: sepatez <sepatez@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 19:15:16 by sepatez           #+#    #+#             */
-/*   Updated: 2024/04/02 22:49:26 by sepatez          ###   ########.fr       */
+/*   Updated: 2024/04/02 23:22:48 by sepatez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int	put_fractal(t_vars *mlx)
 
 	mlx_hook(mlx->window, ON_MOUSEDOWN, 0, mouse_trigger, mlx);
 	mlx_key_hook(mlx->window, ft_close, mlx);
+	mlx->colormod += 1;
 	screen_x = -1;
 	screen_y = 0;
 	while (++screen_x < mlx->xwin)

@@ -6,15 +6,12 @@
 /*   By: sepatez <sepatez@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 14:14:34 by sepatez           #+#    #+#             */
-/*   Updated: 2024/04/02 23:01:54 by sepatez          ###   ########.fr       */
+/*   Updated: 2024/04/02 23:35:19 by sepatez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
-
-// MAX ITERATION
-# define MAX_ITERATION 100
 
 # include <mlx.h>
 # include <unistd.h>
@@ -80,9 +77,11 @@ void			ft_error(void);
 void			set_mlx(t_vars	*mlx);
 void			fractol(int f(), double x, double y);
 
-//escape.c
+//pixels.c
 unsigned int	striped_trgb(int iteration, t_vars *mlx);
 void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
+
+//escape.c
 int				check_juliaship(double x, double y, t_vars *mlx);
 int				check_mandelship(double x0, double y0, t_vars *mlx);
 int				check_burning(double x, double y, t_vars *mlx);

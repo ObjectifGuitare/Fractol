@@ -6,7 +6,7 @@
 /*   By: sepatez <sepatez@student.s19.be>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 14:14:11 by sepatez           #+#    #+#             */
-/*   Updated: 2024/04/02 22:36:02 by sepatez          ###   ########.fr       */
+/*   Updated: 2024/04/02 23:35:43 by sepatez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,18 @@
 void	set_mlx(t_vars	*mlx)
 {
 	mlx->instance = mlx_init();
+	if (!mlx->instance)
+		exit(1);
 	mlx->ywin = 1000;
 	mlx->xwin = 1500;
 	mlx->winratio = (float) mlx->ywin / (float) mlx->xwin;
 	mlx->window = mlx_new_window(mlx->instance,
 			mlx->xwin, mlx->ywin, "fractol");
-	// protect the malloc
+	if (!(mlx->window))
+	{
+		free(mlx->instance);
+		exit(1);
+	}
 	mlx->colormod = 3.2;
 	mlx->zoom = 1;
 	mlx->maxiter = 50;
@@ -33,10 +39,12 @@ void	fractol(int f(), double x, double y)
 
 	set_mlx(&mlx);
 	img.img = mlx_new_image(mlx.instance, mlx.xwin, mlx.ywin);
-	// protect the malloc
+	if (!(img.img))
+		x_btn(&mlx);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel,
 			&img.line_length, &img.endian);
-	// protect the malloc
+	if (!img.addr)
+		x_btn(&mlx);
 	mlx.img = &img;
 	mlx.cx = x;
 	mlx.cy = y;

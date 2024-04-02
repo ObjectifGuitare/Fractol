@@ -23,6 +23,16 @@ int	ft_close(int keycode, t_vars *mlx)
 			mlx_destroy_window(mlx->instance, mlx->window); 
 		exit(0);
 	}
+	if (keycode == 126)
+		mlx->colormod += 0.314;
+	if (keycode == 125)
+		mlx->colormod -= 0.314;
+	if (keycode == 4)
+		mlx->zoom -= 0.05;
+	if (keycode == 5)
+		mlx->zoom += 0.05;
+	
+	printf("%d\n", keycode);
 	return (0);
 }
 
@@ -36,17 +46,6 @@ int	x_btn(t_vars *mlx)
 	exit(0);
 }
 
-int	change_colormod(int keycode, t_vars *mlx)
-{
-	printf("bonjourrrrr");
-	if (keycode == ARROW_UP)
-	{
-		mlx->colormod += 0.314;
-	}
-	if (keycode == ARROW_DOWN)
-		mlx->colormod -= 0.314;
-	return (0);
-}
 
 int	print_mouse_pos(int x, int y, t_vars *mlx)
 {

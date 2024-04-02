@@ -88,6 +88,7 @@ int	put_fractal(t_vars *mlx)
 	double	scaled_x;
 	double	scaled_y;
 
+	mlx_key_hook(mlx->window, ft_close, mlx);
 	screen_x = -1;
 	screen_y = 0;
 	while (++screen_x < mlx->xwin)
@@ -101,5 +102,6 @@ int	put_fractal(t_vars *mlx)
 		}
 		screen_y = 0;
 	}
+	mlx_put_image_to_window(mlx->instance, mlx->window, mlx->img->img, 0, 0);
 	return (0);
 }

@@ -23,7 +23,7 @@ void	set_mlx(t_vars	*mlx)
 	// protect the malloc
 	mlx->colormod = 3.2;
 	mlx->zoom = 1;
-	mlx->maxiter = 1000; 
+	mlx->maxiter = 10; 
 }
 
 void	fractol(int f(), double x, double y)
@@ -42,16 +42,14 @@ void	fractol(int f(), double x, double y)
 	mlx.cy = y;
 	mlx.f = f;
 
-	put_fractal(&mlx);
 
-	mlx_hook(mlx.window, ON_KEYDOWN, 1L << 0, change_colormod, &mlx);
-	mlx_hook(mlx.window, ON_KEYDOWN, 1L << 0, ft_close, &mlx);
+	
 	mlx_hook(mlx.window, ON_DESTROY, 0, x_btn, &mlx);
 	mlx_hook(mlx.window, ON_MOUSEMOVE, 1L << 6, print_mouse_pos, &mlx);
 
 	mlx_loop_hook(mlx.instance, &put_fractal, &mlx);
 
-	mlx_put_image_to_window(mlx.instance, mlx.window, img.img, 0, 0);
+	
 	mlx_loop(mlx.instance);
 }
 

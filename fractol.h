@@ -63,7 +63,7 @@ typedef struct	s_vars {
 
 // events.c
 int	ft_close(int keycode, t_vars *mlx);
-int change_colormod(int keycode, t_vars *mlx);
+
 int	print_mouse_pos(int x, int y, t_vars *mlx);
 int x_btn(t_vars *mlx);
 
